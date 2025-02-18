@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Updated import for Next 13+
+
 interface UserData {
   firstName: string;
   lastName: string;
@@ -112,6 +114,8 @@ export default function Register() {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [contactError, setContactError] = useState(""); // Error for optional contact field
+
+  const router = useRouter(); // Initialize the router
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -290,6 +294,8 @@ export default function Register() {
         const result = await response.json();
         alert("Registration successful!");
         // Handle success (e.g., redirect or clear form)
+        // Redirect to Profile page on successful login
+        router.push("/Profile"); // This redirects the user to the profile page
       } catch (error) {
         setGeneralError(
           "An error occurred during registration. Please try again."
